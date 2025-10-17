@@ -1,3 +1,5 @@
+"use client";
+
 import { ConfigProvider } from "antd";
 import { ReactNode } from "react";
 
