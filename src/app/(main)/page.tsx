@@ -4,8 +4,7 @@ import { useGetUsers } from "@/entities/Users/api/queries";
 
 import UsersTable from "@/features/UsersTable/components/UsersTable";
 import styles from "./page.module.scss";
-import { Button, Typography } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 import UserCreateButton from "@/features/UsersTable/components/UserCreateButton";
 
 export default function Home() {
