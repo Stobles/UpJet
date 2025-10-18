@@ -1,24 +1,26 @@
-"use client";
-
-import { useGetUsers } from "@/entities/Users/api/queries";
-
-import UsersTable from "@/features/UsersTable/components/UsersTable";
 import styles from "./page.module.scss";
-import { Typography } from "antd";
-import UserCreateButton from "@/features/UsersTable/components/UserCreateButton";
+import TableWidget from "./components/TableWidget";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getUsers, getUsersQueryOptions } from "@/entities/Users/api/queries";
 
-export default function Home() {
-  const { data } = useGetUsers();
+const HomePage = async () => {
+  const queryClient = new QueryClient();
 
+  await queryClient.prefetchQuery({
+    queryKey: getUsersQueryOptions().queryKey,
+    queryFn: getUsers,
+  });
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <Typography.Title>Таблица пользователей</Typography.Title>
-          <UserCreateButton />
-        </div>
-        <UsersTable data={data} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className={styles.page}>
+        <TableWidget />
       </div>
-    </div>
+    </HydrationBoundary>
   );
-}
+};
+
+export default HomePage;

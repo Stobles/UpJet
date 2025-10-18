@@ -2,7 +2,7 @@ import z from "zod";
 
 import { useMutation } from "@tanstack/react-query";
 import { apiInstance } from "@/shared/api/apiInstance";
-import queryClient from "@/shared/api/queryClient";
+import { getQueryClient } from "@/shared/api/queryClient";
 import { getUsersQueryOptions } from "@/entities/Users/api/queries";
 import { User } from "@/entities/Users";
 import { userSchema, TUserSchema } from "../lib/schema";
@@ -24,6 +24,7 @@ const updateUser = ({
 };
 
 export const useUpdateUser = () => {
+  const queryClient = getQueryClient();
   return useMutation({
     mutationKey: ["updateUser"],
     mutationFn: updateUser,
