@@ -30,13 +30,18 @@ const columns: TableProps<User>["columns"] = [
   },
 ];
 
-const UsersTable = ({ data }: { data: User[] | undefined }) => {
+const UsersTable = ({
+  data,
+  columns: _,
+  ...props
+}: TableProps<User> & { data: User[] | undefined }) => {
   return (
     <Table
       style={{ width: "100%" }}
       rowKey="id"
       dataSource={data}
       columns={columns}
+      {...props}
     />
   );
 };

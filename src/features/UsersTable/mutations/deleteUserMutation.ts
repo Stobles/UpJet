@@ -1,6 +1,6 @@
 import { getUsersQueryOptions } from "@/entities/Users/api/queries";
 import { apiInstance } from "@/shared/api/apiInstance";
-import queryClient from "@/shared/api/queryClient";
+import { getQueryClient } from "@/shared/api/queryClient";
 import { useMutation } from "@tanstack/react-query";
 
 const deleteUserURL = "/users/{id}";
@@ -10,6 +10,7 @@ const deleteUser = (id: string) => {
 };
 
 export const useDeleteUser = () => {
+  const queryClient = getQueryClient();
   return useMutation({
     mutationKey: ["deleteUser"],
     mutationFn: deleteUser,

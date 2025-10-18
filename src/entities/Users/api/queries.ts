@@ -4,7 +4,7 @@ import { apiInstance } from "@/shared/api/apiInstance";
 
 const getUsersURL = "/users";
 
-const getUsers = async (): Promise<User[]> => {
+export const getUsers = async (): Promise<User[]> => {
   return apiInstance.get<User, User[]>(getUsersURL);
 };
 
