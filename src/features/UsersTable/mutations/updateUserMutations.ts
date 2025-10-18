@@ -7,21 +7,27 @@ import { getUsersQueryOptions } from "@/entities/Users/api/queries";
 import { User } from "@/entities/Users";
 import { userSchema, TUserSchema } from "../lib/schema";
 
-const createUserURL = "/users";
+const updateUserURL = "/users/{id}";
 
-const createUser = (data: TUserSchema): Promise<User> => {
+const updateUser = ({
+  id,
+  data,
+}: {
+  id: string;
+  data: TUserSchema;
+}): Promise<User> => {
   const isValid = z.parse(userSchema, data);
 
   if (!isValid) throw new Error("Неверный тип данных");
 
-  return apiInstance.post<User, User>(createUserURL, data);
+  return apiInstance.put<User, User>(updateUserURL.replace("{id}", id), data);
 };
 
-export const useCreateUser = () => {
+export const useUpdateUser = () => {
   return useMutation({
-    mutationKey: ["createUser"],
-    mutationFn: createUser,
-    onMutate: async (user, context) => {
+    mutationKey: ["updateUser"],
+    mutationFn: updateUser,
+    onMutate: async ({ id, data }, context) => {
       await context.client.cancelQueries({
         queryKey: getUsersQueryOptions().queryKey,
       });
@@ -30,9 +36,13 @@ export const useCreateUser = () => {
         getUsersQueryOptions().queryKey
       );
 
-      // Генерация рандомного id приведет к ремаунту компонента во время ререндера таблицы с данными с сервера
       context.client.setQueryData(getUsersQueryOptions().queryKey, (old) =>
-        old ? [...old, { id: crypto.randomUUID(), ...user }] : []
+        old
+          ? old.map((item) => {
+              if (item.id === id) return { id, ...data };
+              return item;
+            })
+          : []
       );
 
       return { previousUsers };

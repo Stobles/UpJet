@@ -1,5 +1,5 @@
 import { User } from "@/entities/Users/types";
-import { MenuProps, Table, TableProps } from "antd";
+import { Table, TableProps } from "antd";
 import UsersActions from "./UsersActions";
 
 const columns: TableProps<User>["columns"] = [
@@ -26,7 +26,7 @@ const columns: TableProps<User>["columns"] = [
   {
     title: "Действия",
     key: "action",
-    render: (_, record) => <UsersActions id={record.id} />,
+    render: (_, record) => <UsersActions user={record} />,
   },
 ];
 
