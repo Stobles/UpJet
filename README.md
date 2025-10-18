@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Тестовое задание для компании UpJet
 
-## Getting Started
+## Описание проекта
 
-First, run the development server:
+Приложение представляет собой веб-интерфейс для управления списком пользователей с поддержкой операций **создания, чтения, редактирования и удаления (CRUD)**.  
+Данные пользователей хранятся в mock API.
+
+### Что реализовано:
+
+- Таблица пользователей с колонками: Имя, Email, Телефон, Роль, Действия
+- Добавление нового пользователя с валидацией полей:
+  - Имя: минимум 2 символа, максимум 100 символов
+  - Email: валидный формат
+  - Телефон: российский формат
+  - Роль: выбор из списка (`Admin`, `User`, `Manager`)
+- Редактирование существующего пользователя
+- Удаление пользователя
+- Пагинация по 10 записей на страницу
+- Оптимистические обновления при редактировании записи (обновление только тех страниц, где есть изменяемый пользователь)
+
+## Стек технологий
+
+- React 18 + Next.js 13 (`app` directory)
+- TypeScript
+- React Query (`@tanstack/react-query`) для управления серверными данными
+- Zod для валидации форм
+- Ant Design для UI-компонентов
+- Mock API / альтернативное хранилище для данных пользователей
+
+## Установка и запуск
+
+1. Клонируйте репозиторий.
+
+```bash
+git clone https://github.com/Stobles/UpJet.git
+cd upjet
+```
+
+2. Установите зависимости.
+
+```bash
+npm install
+# или
+yarn install
+```
+
+3. Создайте файл с переменными окружения .env.
+
+```ini
+NEXT_PUBLIC_API_URL="https://68f2399cb36f9750deebe07c.mockapi.io/api/v1"
+NEXT_PUBLIC_APP_URL="https://localhost:3000"
+```
+
+4. Запустите проект.
 
 ```bash
 npm run dev
-# or
+# или
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Примечание
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+К сожалению, в сервисе mock API нет возможности в ответе выводить данные о количестве записей в БД, поэтому пришлось захардкодить total для таблицы в 40 записей.
