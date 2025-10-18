@@ -2,7 +2,7 @@ import { env } from "@/shared/config/env";
 import axios, { AxiosError, AxiosInstance } from "axios";
 
 export const apiInstance: AxiosInstance = axios.create({
-  baseURL: `${env.API_URL}/api`,
+  baseURL: `${env.API_URL}`,
   timeout: 10000,
 
   headers: {
@@ -41,7 +41,6 @@ export const responseErrorInterceptor = (error: AxiosError) => {
       "color: #fff; font-weight: bold;"
     );
 
-    // Если есть сообщение об ошибке от сервера
     const message =
       data && typeof data === "object" && "message" in data
         ? data.message
@@ -55,7 +54,6 @@ export const responseErrorInterceptor = (error: AxiosError) => {
       );
     }
 
-    // Подробности (удобно при отладке API)
     console.debug("🧾 Полный ответ сервера:", data);
     console.debug("📨 Заголовки ответа:", headers);
   } else if (error.request) {
@@ -71,7 +69,7 @@ export const responseErrorInterceptor = (error: AxiosError) => {
 };
 
 apiInstance.interceptors.response.use(
-  (config) => config,
+  (config) => config.data,
   responseErrorInterceptor
 );
 

@@ -27,11 +27,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.table({
-    "HTTP статус": `sdfsd`,
-    "URL запроса": "dfsdfsd",
-    Method: "sdfsdfs",
-  });
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
