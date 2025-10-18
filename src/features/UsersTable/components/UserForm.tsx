@@ -1,6 +1,6 @@
 import { Button, Input, Select, Space } from "antd";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createUserSchema, TCreateUser } from "../mutations/createUserMutation";
+import { userSchema, TUserSchema } from "../lib/schema";
 import {
   LoadingOutlined,
   MailOutlined,
@@ -15,12 +15,12 @@ const UserForm = ({
   onSubmit,
   isPending,
 }: {
-  defaultValues?: TCreateUser;
-  onSubmit: SubmitHandler<TCreateUser>;
+  defaultValues?: TUserSchema;
+  onSubmit: SubmitHandler<TUserSchema>;
   isPending: boolean;
 }) => {
-  const { register, handleSubmit, ...form } = useForm<TCreateUser>({
-    resolver: zodResolver(createUserSchema),
+  const { register, handleSubmit, ...form } = useForm<TUserSchema>({
+    resolver: zodResolver(userSchema),
     mode: "onChange",
     defaultValues: defaultValues || {
       name: "",
@@ -79,6 +79,7 @@ const UserForm = ({
                   <Input
                     size="large"
                     placeholder="Номер телефона"
+                    type="tel"
                     prefix={<PhoneOutlined />}
                     {...register("phone")}
                     {...field}
@@ -102,7 +103,7 @@ const UserForm = ({
                     options={[
                       { value: "Admin", label: "Admin" },
                       { value: "Manager", label: "Manager" },
-                      { value: "User", label: "Userr" },
+                      { value: "User", label: "User" },
                     ]}
                     {...register("role")}
                     {...field}
