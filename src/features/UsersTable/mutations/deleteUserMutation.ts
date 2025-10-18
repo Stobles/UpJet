@@ -16,8 +16,8 @@ export const useDeleteUser = () => {
     mutationFn: deleteUser,
     onSettled: () => {
       queryClient.invalidateQueries({
-        predicate: (q) =>
-          Array.isArray(q.queryKey) && q.queryKey[0] === "users",
+        predicate: (query) =>
+          Array.isArray(query.queryKey) && query.queryKey[0] === "users",
       });
     },
   });

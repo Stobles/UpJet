@@ -3,7 +3,6 @@ import z from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { apiInstance } from "@/shared/api/apiInstance";
 import { getQueryClient } from "@/shared/api/queryClient";
-import { getUsersQueryOptions } from "@/entities/Users/api/queries";
 import { User } from "@/entities/Users";
 import { userSchema, TUserSchema } from "../lib/schema";
 
@@ -24,8 +23,8 @@ export const useCreateUser = () => {
     mutationFn: createUser,
     onSettled: () => {
       queryClient.invalidateQueries({
-        predicate: (q) =>
-          Array.isArray(q.queryKey) && q.queryKey[0] === "users",
+        predicate: (query) =>
+          Array.isArray(query.queryKey) && query.queryKey[0] === "users",
       });
     },
   });
