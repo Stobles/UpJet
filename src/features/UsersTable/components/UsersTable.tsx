@@ -2,17 +2,6 @@ import { User } from "@/entities/Users/types";
 import { MenuProps, Table, TableProps } from "antd";
 import UsersActions from "./UsersActions";
 
-const actionItems: MenuProps["items"] = [
-  {
-    label: "Редактировать",
-    key: "edit",
-  },
-  {
-    label: "Удалить",
-    key: "delete",
-  },
-];
-
 const columns: TableProps<User>["columns"] = [
   {
     title: "Имя",
@@ -37,7 +26,7 @@ const columns: TableProps<User>["columns"] = [
   {
     title: "Действия",
     key: "action",
-    render: (_, record) => <UsersActions items={actionItems} />,
+    render: (_, record) => <UsersActions id={record.id} />,
   },
 ];
 
