@@ -20,9 +20,10 @@
 
 ## Стек технологий
 
-- React 18 + Next.js 13 (`app` directory)
+- React 19 + Next.js 15 (`app` directory)
 - TypeScript
 - React Query (`@tanstack/react-query`) для управления серверными данными
+- React-hook-form для управления состоянием форм
 - Zod для валидации форм
 - Ant Design для UI-компонентов
 - Mock API / альтернативное хранилище для данных пользователей
